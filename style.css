@@ -1,0 +1,170 @@
+:root {
+  --main-header-text-size: 42px;
+  --sub-header-text-size: 22px;
+
+
+  --button-color: rgb(16, 16, 16);
+  --button-color-hover: rgb(16, 16, 16, 0.8);
+}
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+
+  color: whitesmoke;
+}
+
+body {
+  background-color: rgb(35, 35, 35);
+}
+
+h1 {
+  font-size: var(--main-header-text-size);
+}
+h2 {
+  font-size: var(--sub-header-text-size);
+}
+
+
+
+/* Header START */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem;
+
+  border-bottom: 1px solid white;
+}
+
+/* Nav START */
+nav {
+
+}
+
+nav > a {
+
+  text-decoration: none;
+  color: blue;
+}
+/* Nav END */
+/* Header END */
+
+
+
+/* Card START */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+
+  border: 1px solid whitesmoke;
+  border-radius: 20px 20px 0px 0px;
+
+  width: 260px;
+  height: fit-content;
+}
+
+.card img {
+  object-fit: cover;
+  border-radius: inherit;
+  /* border-radius: 20px 20px 0px 0px; */
+}
+
+.card .card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+.card .card-buttons {
+  display: flex;
+}
+
+.card .card-buttons > button {
+  width: 100%;
+}
+/* Card END */
+
+
+
+
+
+
+/* Buttons START */
+
+button {
+  background-color: var(--button-color);
+  border: none;
+  cursor: pointer;
+
+  padding: 1rem;
+}
+
+button:hover {
+  background-color: var(--button-color-hover);
+}
+/* Buttons END */
+
+
+
+
+
+
+/***** box-shadow-generator START *****/
+.shadow-area {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.shadow-area .box {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+
+  
+}
+
+/* Controls START */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+
+  width: 400px;
+}
+/* Controls END */
+
+/* box-shadow-style-section START */
+.box-shadow-style-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-shadow-style-text {
+  display: flex;
+  text-align: left;
+
+  padding: 1rem;
+  width: 450px;
+  
+  border: 1px solid whitesmoke;
+}
+
+/* box-shadow-style-section END */
+
+
+/***** box-shadow-generator END *****/
