@@ -1,17 +1,14 @@
-
-
-
-const initialiseBoxShadow = (horizontal, vertical, blur, spread) => {
+const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, spreadSlider, horizontalSliderValue, verticalSliderValue, blurSliderValue, spreadSliderValue) => {
   const box = document.querySelector(".box");
   const boxShadowStyleTextElement = document.querySelector(".box-shadow-style-text");
-
   let styleText;
+  const maxValue = 200;
 
   let boxShadow = {
-    horizontal,
-    vertical,
-    blur,
-    spread
+    horizontal:horizontalSlider.value,
+    vertical:verticalSlider.value,
+    blur:blurSlider.value,
+    spread:spreadSlider.value
   }
 
   return {
@@ -23,17 +20,23 @@ const initialiseBoxShadow = (horizontal, vertical, blur, spread) => {
       box.style = styleText;
       boxShadowStyleTextElement.textContent = styleText;
     },
+    // the change functions sets the slider value, texfield value to the same value. So when one is update they both are
     changeHorizontalLength: (val) => {
-      boxShadow.horizontal = val;
+      if (val > maxValue) val=maxValue;
+      boxShadow.horizontal = horizontalSlider.value = horizontalSliderValue.value = val;
     },
     changeVerticalLength: (val) => {
-      boxShadow.vertical = val;
+      if (val > maxValue) val=maxValue;
+      boxShadow.vertical = verticalSlider.value = verticalSliderValue.value = val;
+      
     },
     changeBlur: (val) => {
-      boxShadow.blur = val;
+      if (val > maxValue) val=maxValue;
+      boxShadow.blur = blurSlider.value = blurSliderValue.value = val;
     },
     changeSpread: (val) => {
-      boxShadow.spread = val;
+      if (val > maxValue) val=maxValue;
+      boxShadow.spread = spreadSlider.value = spreadSliderValue.value = val;
     },
     getStyleText: () => {
       return styleText;
@@ -43,40 +46,54 @@ const initialiseBoxShadow = (horizontal, vertical, blur, spread) => {
 
 
 
-// querries sliders from the dom
+// querries sliders from the DOM
 const horizontalSlider= document.querySelector(".horizontal-slider");
 const verticalSlider= document.querySelector(".vertical-slider");
 const blurSlider= document.querySelector(".blur-slider");
 const spreadSlider= document.querySelector(".spread-slider");
 
+// Querries textfield values from the DOM
+const horizontalSliderValue = document.querySelector(".horizontal-slider-value");
+const verticalSliderValue = document.querySelector(".vertical-slider-value");
+const blurSliderValue = document.querySelector(".blur-slider-value");
+const spreadSliderValue = document.querySelector(".spread-slider-value");
+
+
+
+
 const copyStyleElement = document.querySelector(".copy-style");
 
 // initialises the box shadow to align with the value on the sliders
-const boxshadow = initialiseBoxShadow(horizontalSlider.value, verticalSlider.value, blurSlider.value, spreadSlider.value);
+const boxshadow = initialiseBoxShadow(horizontalSlider, 
+                                      verticalSlider, 
+                                      blurSlider, 
+                                      spreadSlider,
+                                      horizontalSliderValue,
+                                      verticalSliderValue,
+                                      blurSliderValue,
+                                      spreadSliderValue);
 boxshadow.updateStyle();
 
 
+// adds event listers to sliders and textfields to updates value when provided with input
+const createEventListener = (sliderValue, change) => {
 
-// Event listeners 
-horizontalSlider.addEventListener("input", () => {
-  boxshadow.changeHorizontalLength(parseInt(horizontalSlider.value));
-  boxshadow.updateStyle();
-});
+  sliderValue.addEventListener("input", () => {
+    if (isNaN(parseInt(sliderValue.value))) return;
+    change(parseInt(sliderValue.value));  
+    boxshadow.updateStyle();
+  });
+}
 
-verticalSlider.addEventListener("input", () => {
-  boxshadow.changeVerticalLength(parseInt(verticalSlider.value));
-  boxshadow.updateStyle();
-});
+createEventListener(horizontalSlider, boxshadow.changeHorizontalLength);
+createEventListener(verticalSlider, boxshadow.changeVerticalLength);
+createEventListener(blurSlider, boxshadow.changeBlur);
+createEventListener(spreadSlider, boxshadow.changeSpread);
 
-blurSlider.addEventListener("input", () => {
-  boxshadow.changeBlur(parseInt(blurSlider.value));
-  boxshadow.updateStyle();
-});
-
-spreadSlider.addEventListener("input", () => {
-  boxshadow.changeSpread(parseInt(spreadSlider.value));
-  boxshadow.updateStyle();
-});
+createEventListener(horizontalSliderValue, boxshadow.changeHorizontalLength);
+createEventListener(verticalSliderValue, boxshadow.changeVerticalLength);
+createEventListener(blurSliderValue, boxshadow.changeBlur);
+createEventListener(spreadSliderValue, boxshadow.changeSpread);
 
 
 // Copies the current box shadow style to clipboard

@@ -148,6 +148,14 @@ button:hover {
 /* Controls END */
 
 /* box-shadow-style-section START */
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5rem;
+}
+
 .box-shadow-style-section {
   display: flex;
   flex-direction: column;
@@ -162,6 +170,17 @@ button:hover {
   width: 450px;
   
   border: 1px solid whitesmoke;
+}
+
+input {
+  padding: 0.3rem;
+  background-color: black;
+}
+
+.slider-value {
+  align-self: flex-end;
+  text-align: center;
+  width: 24px;
 }
 
 /* box-shadow-style-section END */
