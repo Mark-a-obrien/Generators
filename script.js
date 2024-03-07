@@ -3,6 +3,9 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
   const boxShadowStyleTextElement = document.querySelector(".box-shadow-style-text");
   let styleText;
   const maxValue = 200;
+  const minValue = -200;
+  const blurMaxValue = 300;
+  const blurMinValue = 0;
 
   let boxShadow = {
     horizontal:horizontalSlider.value,
@@ -23,19 +26,23 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
     // the change functions sets the slider value, texfield value to the same value. So when one is update they both are
     changeHorizontalLength: (val) => {
       if (val > maxValue) val=maxValue;
+      else if (val < minValue) val=minValue;
       boxShadow.horizontal = horizontalSlider.value = horizontalSliderValue.value = val;
     },
     changeVerticalLength: (val) => {
       if (val > maxValue) val=maxValue;
+      else if (val < minValue) val=minValue;
       boxShadow.vertical = verticalSlider.value = verticalSliderValue.value = val;
       
     },
     changeBlur: (val) => {
-      if (val > maxValue) val=maxValue;
+      if (val > blurMaxValue) val=blurMaxValue;
+      else if (val < blurMinValue) val=blurMinValue;
       boxShadow.blur = blurSlider.value = blurSliderValue.value = val;
     },
     changeSpread: (val) => {
       if (val > maxValue) val=maxValue;
+      else if (val < minValue) val=minValue;
       boxShadow.spread = spreadSlider.value = spreadSliderValue.value = val;
     },
     getStyleText: () => {
