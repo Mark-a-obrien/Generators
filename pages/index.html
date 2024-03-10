@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
   <link rel="stylesheet" href="../style.css">
   <script src="../script.js" defer></script>
-
-  <title>Something</title>
+  
+  <title>box-shadow-generator</title>
 </head>
 <body>
 
@@ -21,19 +21,42 @@
   </header>
 
   <main>
-    <section class="card">
-      <img class="card-img" src="../images/tester.jpg" alt="card-img">
-      
-      <div class="card-text">
-      <h2 class="card-header">Card header</h1>
-      <p>oifjas oifja ado aifj sodij fas oifj asdo ifjdasodi fjsofjs dofijsa ofijas foisdf shdfsa uhfusad f.</p>
+
+    <section class="box-background">
+        <div class="box"></div>
+      </section>
+    </section>
+
+    <section class="controls">
+      <div class="sliders">
+        <input type="text" class="slider-value horizontal-slider-value">
+        <input class="horizontal-slider" type="range" name="horizontal-slider" id="horizontal-slider" min="-200" max="200">
+        
+        <input type="text" class="slider-value vertical-slider-value">
+        <input class="vertical-slider" type="range" name="vertical-slider" id="vertical-slider" min="-200" max="200">
+        
+        <input type="text" class="slider-value blur-slider-value">
+        <input class="blur-slider" type="range" name="blur-slider" id="blur-slider" min="0" max="300">
+        
+        <input type="text" class="slider-value spread-slider-value">
+        <input class="spread-slider" type="range" name="spread-slider" id="spread-slider" min="-200" max="200">
+        
+        <input type="text" class="slider-value opacity-slider-value">
+        <input class="opacity-slider" type="range" name="opacity-slider" id="opacity-slider" min="0" max="100">
       </div>
 
-      <div class="card-buttons">
-        <button href="box-shadow-generator.html">Repo</button>
-        <button>Live</button>
+      <div class="colors">
+        <input class="shadow-color" type="color">
+        <input class="background-color" type="color">
+        <input class="box-color" type="color">
       </div>
     </section>
+
+    <section class="box-shadow-style-section">
+      <p class="box-shadow-style-text"></p>
+      <button class="copy-style">copy</button>
+    </section>
+
   </main>
 
   <footer></footer>
