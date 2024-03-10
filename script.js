@@ -1,6 +1,36 @@
+// Intialising variablesr4r
+
+// querries sliders from the DOM
+const horizontalSlider = document.querySelector(".horizontal-slider");
+const verticalSlider = document.querySelector(".vertical-slider");
+const blurSlider = document.querySelector(".blur-slider");
+const spreadSlider = document.querySelector(".spread-slider");
+const opacitySlider = document.querySelector(".opacity-slider");
+
+// Querries textfield values from the DOM
+const horizontalSliderValue = document.querySelector(".horizontal-slider-value");
+const verticalSliderValue = document.querySelector(".vertical-slider-value");
+const blurSliderValue = document.querySelector(".blur-slider-value");
+const spreadSliderValue = document.querySelector(".spread-slider-value");
+const opacitySliderValue = document.querySelector(".opacity-slider-value");
+
+// Querries colors values from the DOM
+const shadowColor = document.querySelector(".shadow-color");
+const backgroundColorInput = document.querySelector(".background-color");
+const boxColor = document.querySelector(".box-color");
+
+
+const box = document.querySelector(".box");
+const copyStyleElement = document.querySelector(".copy-style");
+
+
+
+
+
 const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, spreadSlider, opacitySlider, horizontalSliderValue, verticalSliderValue, blurSliderValue, spreadSliderValue, opacitySliderValue) => {
   const box = document.querySelector(".box");
   const boxShadowStyleTextElement = document.querySelector(".box-shadow-style-text");
+  const boxBackground = document.querySelector(".box-background");
   let styleText;
   const maxValue = 200;
   const minValue = -200;
@@ -13,18 +43,43 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
     blur:blurSlider.value,
     spread:spreadSlider.value,
     opacity:opacitySlider.value
+  };
+
+  let boxRGBA = {
+    red: 255,
+    green: 255,
+    blue: 255,  
+    opacity: 1
+  }
+
+  let shadowRGB = {
+    red: 255,
+    green: 255,
+    blue: 255,
+  }
+
+  let backgroundRGB = {
+    red: 255,
+    green: 100,
+    blue: 255,
   }
 
   return {
     updateStyle: () => { // updates the box shadow of the box element
 
       const opacity = boxShadow.opacity/100; // Converts opacity to a decimal value
-      styleText = `-webkit-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(230,220,78,${opacity});
-      -moz-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(230,220,78,${opacity});
-      box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(230,220,78,${opacity});`
+      styleText = `-webkit-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      -moz-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      
+      background-color:rgba(${boxRGBA.red},${boxRGBA.green},${boxRGBA.blue}, ${boxRGBA.opacity});
+      `
 
       box.style = styleText;
       boxShadowStyleTextElement.textContent = styleText;
+
+
+      boxBackground.style =  `background-color:rgb(${backgroundRGB.red},${backgroundRGB.green},${backgroundRGB.blue});`;
     },
     // the change functions sets the slider value, texfield value to the same value. So when one is update they both are
     changeHorizontalLength: (val) => {
@@ -55,46 +110,69 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
     },
     getStyleText: () => {
       return styleText;
+    },
+    changeBoxRGB: (rgba) => {
+      boxRGBA.red = rgba.red;
+      boxRGBA.green = rgba.green;
+      boxRGBA.blue = rgba.blue;
+      boxRGBA.opacity = rgba.opacity;
+    },
+    changeBackgroundRGB: (rgba) => {
+      backgroundRGB.red = rgba.red;
+      backgroundRGB.green = rgba.green;
+      backgroundRGB.blue = rgba.blue;
+    },
+    changeShadowRGB: (rgba) => {
+      shadowRGB.red = rgba.red;
+      shadowRGB.green = rgba.green;
+      shadowRGB.blue = rgba.blue;
     }
   }
 }
 
+// Gets the color input from color input fields on the DOM
+const getColorInput = (colorElement) => {
+  const rgb = {
+    red:parseInt(colorElement.value.substr(1,2), 16),
+    green:parseInt(colorElement.value.substr(3,2), 16),
+    blue:parseInt(colorElement.value.substr(5,2), 16),
+    opacity: 1
+  }
 
+  return rgb;
+}
 
-// querries sliders from the DOM
-const horizontalSlider = document.querySelector(".horizontal-slider");
-const verticalSlider = document.querySelector(".vertical-slider");
-const blurSlider = document.querySelector(".blur-slider");
-const spreadSlider = document.querySelector(".spread-slider");
-const opacitySlider = document.querySelector(".opacity-slider");
-
-// Querries textfield values from the DOM
-const horizontalSliderValue = document.querySelector(".horizontal-slider-value");
-const verticalSliderValue = document.querySelector(".vertical-slider-value");
-const blurSliderValue = document.querySelector(".blur-slider-value");
-const spreadSliderValue = document.querySelector(".spread-slider-value");
-const opacitySliderValue = document.querySelector(".opacity-slider-value");
-
-
-
-
-const copyStyleElement = document.querySelector(".copy-style");
 
 // initialises the box shadow to align with the value on the sliders
 const boxshadow = initialiseBoxShadow(horizontalSlider, 
-                                      verticalSlider, 
-                                      blurSlider, 
-                                      spreadSlider,
-                                      opacitySlider,
-                                      horizontalSliderValue,
-                                      verticalSliderValue,
-                                      blurSliderValue,
-                                      spreadSliderValue,
-                                      opacitySliderValue);
+  verticalSlider, 
+  blurSlider, 
+  spreadSlider,
+  opacitySlider,
+  horizontalSliderValue,
+  verticalSliderValue,
+  blurSliderValue,
+  spreadSliderValue,
+  opacitySliderValue);
+
+
+boxshadow.changeShadowRGB(getColorInput(shadowColor));
+boxshadow.changeBackgroundRGB(getColorInput(backgroundColorInput));
+boxshadow.changeBoxRGB(getColorInput(boxColor));
 boxshadow.updateStyle();
 
 
-// adds event listers to sliders and textfields to updates value when provided with input
+
+
+// Adds event listers to colors
+const createChangeColorEventListener = (colorElement, change) => {
+  colorElement.addEventListener("input", () => {
+    change(getColorInput(colorElement));
+    boxshadow.updateStyle();
+  });
+}
+
+// Adds event listers to sliders and textfields to updates value when provided with input
 const createEventListener = (sliderValue, change) => {
 
   sliderValue.addEventListener("input", () => {
@@ -104,17 +182,26 @@ const createEventListener = (sliderValue, change) => {
   });
 }
 
+// Adding event sliders 
 createEventListener(horizontalSlider, boxshadow.changeHorizontalLength);
 createEventListener(verticalSlider, boxshadow.changeVerticalLength);
 createEventListener(blurSlider, boxshadow.changeBlur);
 createEventListener(spreadSlider, boxshadow.changeSpread);
 createEventListener(opacitySlider, boxshadow.changeOpacity);
 
+// Adding event textfields 
 createEventListener(horizontalSliderValue, boxshadow.changeHorizontalLength);
 createEventListener(verticalSliderValue, boxshadow.changeVerticalLength);
 createEventListener(blurSliderValue, boxshadow.changeBlur);
 createEventListener(spreadSliderValue, boxshadow.changeSpread);
 createEventListener(opacitySliderValue, boxshadow.changeOpacity);
+
+// Adding event colors 
+createChangeColorEventListener(shadowColor, boxshadow.changeShadowRGB);
+createChangeColorEventListener(backgroundColorInput, boxshadow.changeBackgroundRGB);
+createChangeColorEventListener(boxColor, boxshadow.changeBoxRGB);
+
+
 
 
 // Copies the current box shadow style to clipboard
