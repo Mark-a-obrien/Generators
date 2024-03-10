@@ -21,6 +21,7 @@ const boxColor = document.querySelector(".box-color");
 
 
 const box = document.querySelector(".box");
+const insetButton = document.querySelector(".inset")
 const copyStyleElement = document.querySelector(".copy-style");
 
 
@@ -36,6 +37,7 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
   const minValue = -200;
   const blurMaxValue = 300;
   const blurMinValue = 0;
+  let isInset = false;
 
   let boxShadow = {
     horizontal:horizontalSlider.value,
@@ -67,10 +69,12 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
   return {
     updateStyle: () => { // updates the box shadow of the box element
 
+      const inset = isInset ? "inset" : "";
+
       const opacity = boxShadow.opacity/100; // Converts opacity to a decimal value
-      styleText = `-webkit-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
-      -moz-box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
-      box-shadow: ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      styleText = `-webkit-box-shadow: ${inset} ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      -moz-box-shadow: ${inset} ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
+      box-shadow: ${inset} ${boxShadow.horizontal}px ${boxShadow.vertical}px ${boxShadow.blur}px ${boxShadow.spread}px rgba(${shadowRGB.red},${shadowRGB.green},${shadowRGB.blue},${opacity});
       
       background-color:rgba(${boxRGBA.red},${boxRGBA.green},${boxRGBA.blue}, ${boxRGBA.opacity});
       `
@@ -126,6 +130,9 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
       shadowRGB.red = rgba.red;
       shadowRGB.green = rgba.green;
       shadowRGB.blue = rgba.blue;
+    },
+    setIsInset: () => {
+      isInset = !isInset;
     }
   }
 }
@@ -160,8 +167,6 @@ boxshadow.changeShadowRGB(getColorInput(shadowColor));
 boxshadow.changeBackgroundRGB(getColorInput(backgroundColorInput));
 boxshadow.changeBoxRGB(getColorInput(boxColor));
 boxshadow.updateStyle();
-
-
 
 
 // Adds event listers to colors
@@ -202,13 +207,27 @@ createChangeColorEventListener(backgroundColorInput, boxshadow.changeBackgroundR
 createChangeColorEventListener(boxColor, boxshadow.changeBoxRGB);
 
 
+// Sets the box shadow to either inset or outline 
+insetButton.addEventListener("click", () => {
+  let text = insetButton.textContent.toLowerCase();
+
+  text === "outline" ? insetButton.textContent="Inset" : insetButton.textContent="Outline"
+
+  boxshadow.setIsInset();
+  boxshadow.updateStyle();
+})
 
 
+const delay = (time) => {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+const copyButtonText = copyStyleElement.textContent;
 // Copies the current box shadow style to clipboard
 copyStyleElement.addEventListener("click", () => {
-  console.log("Copied")
-
+  copyStyleElement.textContent ="Copied";
   navigator.clipboard.writeText(boxshadow.getStyleText()) 
+  delay(1000).then(() => copyStyleElement.textContent = copyButtonText);
 });
 
 

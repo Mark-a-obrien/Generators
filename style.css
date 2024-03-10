@@ -1,5 +1,5 @@
 :root {
-  --main-header-text-size: 42px;
+  --main-header-text-size: 32px;
   --sub-header-text-size: 22px;
 
 
@@ -13,6 +13,8 @@
   padding: 0px;
 
   color: whitesmoke;
+
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -47,7 +49,10 @@ nav {
 nav > a {
 
   text-decoration: none;
-  color: blue;
+  font-weight: 600;
+  font-size: 20px;
+
+  color: rgb(1, 217, 73);
 }
 /* Nav END */
 /* Header END */
@@ -110,6 +115,7 @@ button {
 button:hover {
   background-color: var(--button-color-hover);
 }
+
 /* Buttons END */
 
 
@@ -121,9 +127,9 @@ button:hover {
 
 main {
   display: flex;
-  flex-direction: column;
-
   gap: 5rem;
+
+  padding: 4rem  4rem 0rem 4rem; 
 }
 
 .box-background {
@@ -131,7 +137,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 300px;
+  height: auto;
 
   background-color: rgb(58, 58, 58);
 }
@@ -146,15 +152,20 @@ main {
 
 .controls {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100vw;
+  width: 800px;
 }
 
 .sliders {
   display: flex;
   flex-direction: column;
+}
 
-  width: 400px;
+.slider-title-Area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 /* Controls END */
 
@@ -166,7 +177,7 @@ main {
 .box-shadow-style-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .box-shadow-style-text {
@@ -174,9 +185,11 @@ main {
   text-align: left;
 
   padding: 1rem;
-  width: 450px;
+  width: auto;
   
   border: 1px solid whitesmoke;
+
+  font-size: 14px;
 }
 
 input {
@@ -188,6 +201,16 @@ input {
   align-self: flex-end;
   text-align: center;
   width: 24px;
+}
+
+.color-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider {
+  width: 40px;
 }
 
 /* box-shadow-style-section END */
