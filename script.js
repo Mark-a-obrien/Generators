@@ -1,4 +1,4 @@
-// Intialising variablesr4r
+// Intialising variables
 
 // querries sliders from the DOM
 const horizontalSlider = document.querySelector(".horizontal-slider");
@@ -23,8 +23,6 @@ const boxColor = document.querySelector(".box-color");
 const box = document.querySelector(".box");
 const insetButton = document.querySelector(".inset")
 const copyStyleElement = document.querySelector(".copy-style");
-
-
 
 
 
@@ -85,7 +83,7 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
 
       boxBackground.style =  `background-color:rgb(${backgroundRGB.red},${backgroundRGB.green},${backgroundRGB.blue});`;
     },
-    // the change functions sets the slider value, texfield value to the same value. So when one is update they both are
+    // The change functions sets the slider values, texfield value to the same value. So when one is update they both are
     changeHorizontalLength: (val) => {
       if (val > maxValue) val=maxValue;
       else if (val < minValue) val=minValue;
@@ -108,8 +106,6 @@ const initialiseBoxShadow = (horizontalSlider, verticalSlider, blurSlider, sprea
       boxShadow.spread = spreadSlider.value = spreadSliderValue.value = val;
     },
     changeOpacity: (val) => {
-      // if (val > maxValue) val=maxValue;
-      // else if (val < minValue) val=minValue;
       boxShadow.opacity = opacitySlider.value = opacitySliderValue.value = val;
     },
     getStyleText: () => {
@@ -163,10 +159,33 @@ const boxshadow = initialiseBoxShadow(horizontalSlider,
   opacitySliderValue);
 
 
-boxshadow.changeShadowRGB(getColorInput(shadowColor));
-boxshadow.changeBackgroundRGB(getColorInput(backgroundColorInput));
-boxshadow.changeBoxRGB(getColorInput(boxColor));
-boxshadow.updateStyle();
+
+// Sets default values when the page is loaded
+window.addEventListener("load", () => {
+  shadowColor.value = "#912820"
+  boxshadow.changeShadowRGB(getColorInput(shadowColor));
+
+  backgroundColorInput.value = "#849389"
+  boxshadow.changeBackgroundRGB(getColorInput(backgroundColorInput));
+
+  boxColor.value = "#289302"
+  boxshadow.changeBoxRGB(getColorInput(boxColor));
+
+
+  boxshadow.changeHorizontalLength(0);
+  boxshadow.changeVerticalLength(0);
+  boxshadow.changeBlur(150);
+  boxshadow.changeSpread(0);
+  boxshadow.changeOpacity(100);
+
+  boxshadow.updateStyle();
+});
+
+
+// boxshadow.changeShadowRGB(getColorInput(shadowColor));
+// boxshadow.changeBackgroundRGB(getColorInput(backgroundColorInput));
+// boxshadow.changeBoxRGB(getColorInput(boxColor));
+// boxshadow.updateStyle();
 
 
 // Adds event listers to colors
@@ -187,21 +206,21 @@ const createEventListener = (sliderValue, change) => {
   });
 }
 
-// Adding event sliders 
+// Adding event listeners to sliders 
 createEventListener(horizontalSlider, boxshadow.changeHorizontalLength);
 createEventListener(verticalSlider, boxshadow.changeVerticalLength);
 createEventListener(blurSlider, boxshadow.changeBlur);
 createEventListener(spreadSlider, boxshadow.changeSpread);
 createEventListener(opacitySlider, boxshadow.changeOpacity);
 
-// Adding event textfields 
+// Adding event listeners to  textfields 
 createEventListener(horizontalSliderValue, boxshadow.changeHorizontalLength);
 createEventListener(verticalSliderValue, boxshadow.changeVerticalLength);
 createEventListener(blurSliderValue, boxshadow.changeBlur);
 createEventListener(spreadSliderValue, boxshadow.changeSpread);
 createEventListener(opacitySliderValue, boxshadow.changeOpacity);
 
-// Adding event colors 
+// Adding event listeners to colors 
 createChangeColorEventListener(shadowColor, boxshadow.changeShadowRGB);
 createChangeColorEventListener(backgroundColorInput, boxshadow.changeBackgroundRGB);
 createChangeColorEventListener(boxColor, boxshadow.changeBoxRGB);
